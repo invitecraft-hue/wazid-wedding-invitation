@@ -98,7 +98,32 @@
   const canvas = $("#scratchCanvas");
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   const scratchInstruction = $("#scratchInstruction");
-  let drawing = false, scratched = false, lastPoint = null;
+  let drawing = false, scratched = false, lastPoint = null, revealTriggered = false;
+
+  // Celebration confetti launches once per successful scratch-card reveal.
+  function launchRevealConfetti() {
+    const layer = document.createElement("div");
+    layer.className = "confetti-burst";
+    layer.setAttribute("aria-hidden", "true");
+    const palette = ["#f2d28f", "#d84c64", "#f18a48", "#70b77e", "#52a6d8", "#b58ce0", "#fff0d1", "#ef9eae"];
+    const count = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : (window.innerWidth < 640 ? 46 : 76);
+    for (let i = 0; i < count; i++) {
+      const piece = document.createElement("span");
+      piece.className = "confetti-piece";
+      piece.style.left = `${Math.random() * 100}%`;
+      piece.style.backgroundColor = palette[Math.floor(Math.random() * palette.length)];
+      piece.style.setProperty("--fall-duration", `${3.1 + Math.random() * 2.1}s`);
+      piece.style.setProperty("--fall-delay", `${Math.random() * 0.65}s`);
+      piece.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 220)}px`);
+      piece.style.setProperty("--spin", `${Math.round(360 + Math.random() * 1080)}deg`);
+      piece.style.setProperty("--piece-width", `${5 + Math.random() * 7}px`);
+      piece.style.setProperty("--piece-height", `${8 + Math.random() * 10}px`);
+      if (Math.random() > 0.76) piece.classList.add("confetti-round");
+      layer.appendChild(piece);
+    }
+    if (count) document.body.appendChild(layer);
+    window.setTimeout(() => layer.remove(), 6200);
+  }
   function drawFoil() {
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
@@ -118,14 +143,19 @@
     ctx.font = "32px Georgia, serif"; ctx.fillText("✧  ♡  ✧", w/2, h/2+12);
     ctx.font = "11px Montserrat, sans-serif"; ctx.fillText("A SPECIAL INVITATION", w/2, h/2+42);
     ctx.globalCompositeOperation = "destination-out";
-    scratched = false; scratchInstruction.style.display = "block"; canvas.style.opacity = "1";
+    scratched = false; revealTriggered = false; scratchInstruction.style.display = "block"; canvas.style.opacity = "1";
   }
   function pointFromEvent(event) {
     const rect = canvas.getBoundingClientRect();
     const touch = event.touches && event.touches[0];
     return {x:(touch ? touch.clientX : event.clientX)-rect.left, y:(touch ? touch.clientY : event.clientY)-rect.top};
   }
-  function scratchStart(event) { drawing = true; lastPoint = pointFromEvent(event); scratchLine(lastPoint,lastPoint); event.preventDefault(); }
+  function scratchStart(event) {
+    if (revealTriggered) return;
+    drawing = true; lastPoint = pointFromEvent(event);
+    try { canvas.setPointerCapture(event.pointerId); } catch (_) {}
+    scratchLine(lastPoint,lastPoint); event.preventDefault();
+  }
   function scratchMove(event) {
     if (!drawing) return;
     const p = pointFromEvent(event); scratchLine(lastPoint,p); lastPoint = p;
@@ -144,9 +174,14 @@
       const pixels = ctx.getImageData(0,0,w,h).data;
       let transparent = 0, step = 24;
       for (let i=3;i<pixels.length;i+=4*step) if (pixels[i] < 20) transparent++;
-      if (transparent / (pixels.length / (4*step)) > .38) {
-        canvas.style.opacity = "0"; scratchInstruction.style.display = "none";
-        window.setTimeout(() => { canvas.style.pointerEvents = "none"; showToast("Invitation revealed — You're Invited!"); }, 500);
+      if (transparent / (pixels.length / (4*step)) > .38 && !revealTriggered) {
+        revealTriggered = true;
+        drawing = false;
+        canvas.style.opacity = "0";
+        canvas.style.pointerEvents = "none";
+        scratchInstruction.style.display = "none";
+        launchRevealConfetti();
+        window.setTimeout(() => showToast("Invitation revealed — You're Invited!"), 450);
       }
     } catch (_) {}
   }
@@ -292,11 +327,15 @@
 
   // Share invitation
   $("#shareButton").addEventListener("click", async () => {
-    const shareData = {title:"Wazid Ali & Jeenat Parveen — Wedding Invitation", text:"You're invited to the Nikah of Wazid Ali and Jeenat Parveen on Friday, 23 October 2026, and Dawat-e-Walima on Sunday, 25 October 2026."};
+    const invitationUrl = "https://invitecraft-hue.github.io/wazid-wedding-invitation/";
+    const shareData = {
+      title: "Wazid Ali & Jeenat Parveen — Wedding Invitation",
+      text: "With the blessings of Allah, you're warmly invited to the Nikah of Wazid Ali & Jeenat Parveen on Friday, 23 October 2026, and Dawat-e-Walima on Sunday, 25 October 2026.",
+      url: invitationUrl
+    };
     try {
       if (navigator.share) await navigator.share(shareData);
-      else if (navigator.clipboard) { await navigator.clipboard.writeText(location.href); showToast("Invitation link copied. You can now share it."); }
-      else showToast("Copy this page's address to share the invitation.");
+      else window.open(`https://wa.me/?text=${encodeURIComponent(`${shareData.text}\n${invitationUrl}`)}`, "_blank", "noopener,noreferrer");
     } catch (_) {}
   });
 

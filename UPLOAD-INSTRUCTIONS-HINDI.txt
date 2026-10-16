@@ -1,0 +1,18 @@
+WAZID–JEENAT WEDDING WEBSITE UPDATE — GITHUB PAGES UPLOAD
+
+Is ZIP mein website ke latest files, WhatsApp thumbnail, mobile opening fix, scratch-card confetti aur redesigned InviteCraft footer-promotion section hai.
+
+GITHUB PAR UPDATE KARNE KE STEPS
+1. ZIP extract karo. Andar woh folder kholo jisme index.html, styles.css, script.js aur assets folder dikhte hain.
+2. GitHub par apni repository kholo: invitecraft-hue/wazid-wedding-invitation
+3. Repository ke main/root page par Add file > Upload files select karo.
+4. index.html, styles.css, script.js aur README.md ko upload area mein drag-and-drop karo. Parent folder ko upload mat karna; files repository ke root mein honi chahiye.
+5. Repository mein assets folder kholo. Add file > Upload files se nayi file whatsapp-preview.jpg upload karo. Path yeh hona chahiye: assets/whatsapp-preview.jpg
+6. Commit changes karo aur GitHub Pages deployment finish hone do.
+7. Live website kholkar opening screen, scratch card, Gallery aur footer ke InviteCraft promo card/WhatsApp/Email buttons test karo.
+8. WhatsApp preview ke liye link send karo. WhatsApp kabhi-kabhi purana preview cache karta hai, isliye update dikhne mein kuch waqt lag sakta hai.
+
+IMPORTANT
+- Site ka live URL tab tak update nahi hoga jab tak files GitHub repository mein commit na ho jayein.
+- index.html aur styles.css/script.js ka path root par wahi rehna chahiye.
+- assets folder ki baaki existing files delete mat karna; sirf nayi whatsapp-preview.jpg add karo.

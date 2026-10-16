@@ -468,3 +468,180 @@ button:active,.gold-button:active,.outline-button:active,.contact-links a:active
 @media(prefers-reduced-motion:reduce){.gallery-feature-image img,.gallery-thumb img,.gallery-mosaic-item img,.gallery-view-all,.gallery-rail-arrow{transition:none!important}.gallery-mosaic{animation:none}}
 
 .gallery-thumb[hidden],.gallery-mosaic-item[hidden]{display:none!important}
+
+
+/* Final mobile-opening refinements: keep the entire invitation cover usable on short and narrow screens. */
+@media(max-width:640px){
+  .intro{display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100svh;padding:clamp(10px,2.5svh,22px) 12px;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain}
+  .intro-arch{box-sizing:border-box;flex:0 0 auto;width:min(100%,500px);margin:auto;padding:clamp(18px,3.2svh,29px) clamp(13px,4vw,21px) clamp(16px,2.7svh,25px);border-radius:44% 44% 12px 12px/19% 19% 12px 12px}
+  .intro-urdu{font-size:clamp(.92rem,4.15vw,1.24rem);line-height:1.9;margin:0 auto clamp(7px,1.6svh,13px)}
+  .intro .eyebrow{font-size:clamp(.53rem,2.2vw,.65rem);letter-spacing:.17em;margin-bottom:clamp(8px,1.4svh,13px)}
+  .intro h1{font-size:clamp(2.6rem,11.2vw,4.15rem);line-height:.9;margin:0 0 clamp(10px,1.8svh,17px)}
+  .intro-monogram{font-size:clamp(1.48rem,5.9vw,1.95rem);margin:5px 0}
+  .intro-names{font-size:clamp(.88rem,4vw,1.12rem);line-height:1.4;margin:0 auto clamp(13px,2.3svh,21px);max-width:100%;overflow-wrap:anywhere}
+  .open-invitation{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;max-width:380px;min-height:48px;margin:0 auto;padding:13px 8px;font-size:clamp(.52rem,2.45vw,.7rem);letter-spacing:clamp(.055em,.36vw,.11em);white-space:normal;line-height:1.35}
+  .open-invitation span{padding:0 3px;flex:0 0 auto}
+  .intro-hint{font-size:clamp(.47rem,1.95vw,.58rem);letter-spacing:.12em;line-height:1.6;margin:clamp(11px,1.9svh,17px) 0 0}
+  .intro-lantern{top:max(10px,2svh);font-size:1.35rem}
+  .intro-flower{font-size:clamp(2rem,8vw,3rem);bottom:1.5%}
+}
+@media(max-width:390px){
+  .intro{padding-left:9px;padding-right:9px}
+  .intro-arch{padding-left:11px;padding-right:11px}
+  .intro-names{font-size:clamp(.84rem,3.8vw,1rem)}
+  .open-invitation{letter-spacing:.045em}
+}
+@media(max-height:700px) and (max-width:640px){
+  .intro{align-items:flex-start;padding-top:10px;padding-bottom:10px}
+  .intro-arch{margin-top:auto;margin-bottom:auto;padding-top:15px;padding-bottom:14px}
+  .intro-urdu{margin-bottom:5px;line-height:1.75}
+  .intro .eyebrow{margin-bottom:7px}
+  .intro h1{margin-bottom:8px}
+  .intro-monogram{margin:3px 0}
+  .intro-names{margin-bottom:11px}
+  .intro-hint{margin-top:9px}
+}
+@media(max-height:500px) and (orientation:landscape){
+  .intro{align-items:flex-start;padding:8px 12px}
+  .intro-arch{width:min(680px,92vw);margin:auto;padding:8px 18px;border-radius:18px}
+  .intro-urdu{font-size:.86rem;margin-bottom:3px;line-height:1.6}
+  .intro .eyebrow{font-size:.48rem;margin-bottom:4px}
+  .intro h1{font-size:2.3rem;line-height:.86;margin-bottom:4px}
+  .intro-monogram{display:none}
+  .intro-names{font-size:.86rem;margin-bottom:6px}
+  .open-invitation{min-height:38px;padding:8px;font-size:.53rem}
+  .intro-hint{font-size:.43rem;margin-top:6px}
+  .intro-flower{font-size:1.8rem}
+}
+
+/* Small paper confetti falls from the top as soon as the scratch card is fully revealed. */
+.confetti-burst{position:fixed;inset:0;z-index:3000;overflow:hidden;pointer-events:none;contain:layout paint}
+.confetti-piece{position:absolute;top:-24px;width:var(--piece-width,8px);height:var(--piece-height,13px);border-radius:2px;opacity:0;box-shadow:0 1px 4px #0002;animation:confettiFall var(--fall-duration,4s) var(--fall-delay,0s) cubic-bezier(.18,.66,.44,1) forwards}
+.confetti-piece.confetti-round{border-radius:50%;width:8px;height:8px}
+@keyframes confettiFall{0%{opacity:0;transform:translate3d(0,-4vh,0) rotate(0deg)}8%{opacity:1}75%{opacity:.95}100%{opacity:0;transform:translate3d(var(--drift,60px),108vh,0) rotate(var(--spin,720deg))}}
+@media(prefers-reduced-motion:reduce){.confetti-burst{display:none!important}}
+
+/* InviteCraft footer promotion — premium, conversion-focused and mobile responsive */
+.site-footer{
+  position:relative;isolation:isolate;overflow:hidden;
+  padding:clamp(42px,6vw,78px) clamp(15px,3vw,28px) 20px;
+  background:radial-gradient(ellipse at 12% 5%,#4c2028 0%,transparent 38%),radial-gradient(ellipse at 90% 78%,#3b1b21 0%,transparent 36%),#1b0e12;
+}
+.site-footer:before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.22;
+  background:repeating-linear-gradient(135deg,transparent 0 34px,#d0ad700d 35px 36px,transparent 37px 70px);
+}
+.footer-inner{position:relative;max-width:1180px;margin:0 auto}
+.wedding-footer-note{max-width:790px;margin:0 auto clamp(28px,4vw,44px);padding:0 14px clamp(28px,4vw,40px);text-align:center;border-bottom:1px solid #d0ad7035}
+.wedding-footer-note>span{display:inline-flex;align-items:center;justify-content:center;width:80px;height:55px;border:1px solid #d0ad7065;border-radius:50%;font:1.65rem var(--serif);color:var(--gold-light);box-shadow:0 0 28px #d0ad7010}
+.wedding-footer-note>span i{font-family:var(--script);font-size:1.25rem;margin:0 4px}
+.wedding-footer-note p{font:clamp(1.02rem,2vw,1.35rem)/1.5 var(--serif);color:#f0dfcb;margin:14px 0 8px}
+.wedding-footer-note small{display:block;font-size:.65rem;line-height:1.7;color:#bca48f;letter-spacing:.055em}
+.invitecraft-promo{
+  position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(280px,.88fr);align-items:center;gap:clamp(25px,4.5vw,64px);
+  padding:clamp(23px,4.3vw,54px);border:1px solid #d5b16f82;border-radius:30px;
+  background:linear-gradient(122deg,#32151d 0%,#281117 56%,#3a1a20 100%);
+  box-shadow:0 24px 65px #09040672,inset 0 0 0 6px #d0ad7009,inset 0 0 48px #b9813410;
+}
+.invitecraft-promo:before{content:"";position:absolute;inset:9px;border:1px solid #d0ad7020;border-radius:23px;pointer-events:none;z-index:-1}
+.promo-glow{position:absolute;width:280px;height:280px;border-radius:50%;filter:blur(60px);opacity:.13;pointer-events:none;z-index:-1}
+.promo-glow-one{top:-155px;left:7%;background:#efc777}.promo-glow-two{right:-125px;bottom:-160px;background:#b6505d}
+.promo-copy{position:relative;z-index:1;min-width:0}
+.promo-brand-row{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:25px}
+.promo-logo{display:block;width:clamp(170px,22vw,270px);height:75px;max-width:100%;object-fit:contain;padding:6px 10px;border:1px solid #f1d9a26e;border-radius:13px;background:linear-gradient(135deg,#fff4df,#e8c890);box-shadow:0 8px 23px #08030538}
+.promo-brand-badge{display:inline-flex;align-items:center;gap:7px;padding:9px 11px;border:1px solid #d0ad7048;border-radius:999px;color:#e8ce9b;background:#ffffff05;font-size:.53rem;letter-spacing:.12em;white-space:nowrap}
+.promo-brand-badge span{font-size:.92rem;color:#ffe7a8}
+.promo-eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 13px;color:#e9c982;font-size:.62rem;font-weight:700;letter-spacing:.2em}
+.promo-eyebrow span{font-size:.96rem;animation:promoSparkle 3s ease-in-out infinite}
+.invitecraft-promo h2{max-width:610px;margin:0 0 17px;color:#fff0dc;font:500 clamp(2.2rem,4.3vw,3.85rem)/.99 var(--serif);letter-spacing:-.035em}
+.invitecraft-promo h2 em{font-family:var(--script);font-weight:400;color:#f0cf87;white-space:nowrap}
+.promo-description{max-width:570px;margin:0 0 21px;color:#d4c0af;font-size:.83rem;line-height:1.9}
+.promo-perks{display:flex;flex-wrap:wrap;gap:9px 15px;margin:0 0 25px}
+.promo-perks span{display:inline-flex;align-items:center;gap:7px;color:#e4d1bd;font-size:.63rem;letter-spacing:.015em}
+.promo-perks i{display:inline-grid;place-items:center;width:17px;height:17px;border:1px solid #d3b16e83;border-radius:50%;font-size:.58rem;color:#f2d99a;font-style:normal}
+.promo-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:680px}
+.promo-cta{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;gap:10px;min-width:0;min-height:72px;padding:12px 13px;border:1px solid #caa36282;border-radius:18px;text-align:left;transition:transform .26s ease,box-shadow .26s ease,border-color .26s ease,background .26s ease}
+.promo-cta:before{content:"";position:absolute;top:-40%;bottom:-40%;left:-75%;width:44%;z-index:-1;transform:skewX(-22deg);background:linear-gradient(90deg,transparent,#ffffff23,transparent);transition:left .65s ease}
+.promo-cta:hover:before{left:140%}
+.promo-cta:hover{transform:translateY(-3px);box-shadow:0 12px 26px #08030647;border-color:#f0d397}
+.promo-cta:active{transform:scale(.98)}
+.promo-cta-primary{background:linear-gradient(135deg,#e8c982,#bd8b49);color:#35181d;border-color:#f0d99b;box-shadow:0 8px 22px #0e060822}
+.promo-cta-primary:hover{background:linear-gradient(135deg,#f3daa0,#d5a75d)}
+.promo-cta-secondary{background:#fffaf405;color:#f6e4cc}
+.promo-cta-secondary:hover{background:#d0ad7015}
+.promo-cta-icon{flex:0 0 34px;display:grid;place-items:center;width:34px;height:34px;border:1px solid currentColor;border-radius:50%;font-size:1.1rem}
+.promo-cta-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.promo-cta-copy strong{font-size:.7rem;line-height:1.35;font-weight:700}
+.promo-cta-copy small{font-size:.53rem;line-height:1.45;overflow-wrap:anywhere;opacity:.82}
+.promo-cta-arrow{font-size:1rem;flex:0 0 auto;transition:transform .25s ease}
+.promo-cta:hover .promo-cta-arrow{transform:translate(2px,-2px)}
+.promo-byline{margin:17px 0 0;color:#a9907d;font-size:.61rem;line-height:1.7}
+.promo-byline strong{color:#ecd2a0;font-weight:600}.promo-byline span{padding:0 4px;color:#8b6e51}
+.promo-showcase{position:relative;isolation:isolate;justify-self:stretch;max-width:400px;width:100%;margin:0 auto;padding:12px;border:1px solid #d8b575a6;border-radius:22px;background:linear-gradient(145deg,#6d3840,#30151b 56%,#4c2429);box-shadow:0 23px 43px #0703065c,0 0 0 5px #d0ad700b;transform:rotate(1deg);transition:transform .4s ease,box-shadow .4s ease;animation:promoCardFloat 7s ease-in-out infinite}
+.promo-showcase:hover{transform:rotate(0) translateY(-4px);box-shadow:0 28px 52px #07030672,0 0 0 5px #d0ad7010;animation-play-state:paused}
+.promo-showcase-top{height:23px;display:flex;align-items:center;gap:5px;padding:0 5px 10px}
+.showcase-dot{display:block;width:6px;height:6px;border-radius:50%;background:#d5b16f;opacity:.8}.showcase-dot:nth-child(2){opacity:.55}.showcase-dot:nth-child(3){opacity:.3}
+.promo-showcase-top small{margin-left:auto;color:#e3c994;font-size:.47rem;letter-spacing:.13em}
+.promo-invitation-preview{position:relative;overflow:hidden;aspect-ratio:4/5;border:1px solid #dfbf7b;border-radius:13px;background:#4b2128}
+.promo-invitation-preview:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#210b1110 45%,#1c0808a3 100%);box-shadow:inset 0 0 0 5px #f5d7920b}
+.promo-invitation-preview img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s ease}
+.promo-showcase:hover .promo-invitation-preview img{transform:scale(1.045);filter:saturate(1.06)}
+.promo-preview-caption{position:absolute;z-index:2;left:10px;right:10px;bottom:10px;display:flex;align-items:center;gap:10px;padding:12px 13px;border:1px solid #edd08a70;border-radius:13px;background:#241015d9;backdrop-filter:blur(10px);box-shadow:0 9px 25px #09030645}
+.preview-sparkle{flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;border:1px solid #d0ad70a0;border-radius:50%;color:#f4d893;font-size:1.15rem}
+.promo-preview-caption span:last-child{display:flex;flex-direction:column;gap:4px;min-width:0}
+.promo-preview-caption strong{font:500 1.08rem/1.1 var(--serif);color:#f8e6c4}.promo-preview-caption small{color:#d0b9a1;font-size:.55rem}
+.promo-showcase-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 2px 1px;color:#dfbf82;font-size:.45rem;letter-spacing:.11em}
+.promo-showcase-footer i{font-style:normal;font-size:.8rem;margin:0 3px}
+.promo-floating-seal{position:absolute;z-index:4;top:42px;right:10px;display:grid;place-content:center;width:78px;height:78px;border:1px solid #f4d897;border-radius:50%;outline:4px solid #d0ad7024;background:linear-gradient(145deg,#f0d99b,#b88749);box-shadow:0 9px 25px #09030655;color:#35181d;text-align:center;font-size:.53rem;font-weight:700;line-height:1.5;letter-spacing:.1em;transform:rotate(9deg)}
+.footer-bottom-line{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:26px;padding:17px 3px 0;border-top:1px solid #d0ad7026;color:#917967;font-size:.57rem;line-height:1.7}
+.footer-bottom-brand{color:#b69c83}.footer-bottom-line a{color:#d6b778;transition:color .2s ease}.footer-bottom-line a:hover{color:#ffebba}.footer-bottom-line a i{font-style:normal;margin-left:5px}
+@keyframes promoCardFloat{0%,100%{transform:rotate(1deg) translateY(0)}50%{transform:rotate(-.6deg) translateY(-5px)}}
+@keyframes promoSparkle{0%,100%{transform:rotate(0) scale(1);opacity:.8}50%{transform:rotate(18deg) scale(1.18);opacity:1}}
+@media(max-width:860px){
+  .invitecraft-promo{grid-template-columns:minmax(0,1fr) minmax(235px,.78fr);gap:22px;padding:clamp(20px,3.4vw,32px)}
+  .promo-brand-row{gap:10px}.promo-brand-badge{font-size:.47rem;padding:8px 9px}
+  .promo-logo{width:clamp(165px,23vw,220px);height:66px}
+  .invitecraft-promo h2{font-size:clamp(2.1rem,4.5vw,3rem)}
+  .promo-actions{grid-template-columns:1fr}
+  .promo-cta{min-height:65px}
+  .promo-floating-seal{width:66px;height:66px;right:-12px;font-size:.47rem}
+}
+@media(max-width:680px){
+  .site-footer{padding:40px 13px 17px}
+  .wedding-footer-note{padding-bottom:25px;margin-bottom:24px}
+  .wedding-footer-note p{font-size:1.05rem}
+  .wedding-footer-note small{font-size:.59rem}
+  .invitecraft-promo{grid-template-columns:minmax(0,1fr);gap:30px;padding:23px 17px 21px;border-radius:23px}
+  .invitecraft-promo:before{inset:6px;border-radius:17px}
+  .promo-brand-row{justify-content:space-between;align-items:center;margin-bottom:22px}
+  .promo-logo{width:min(64%,225px);height:59px;padding:5px 8px}
+  .promo-brand-badge{font-size:.46rem;letter-spacing:.08em}
+  .promo-eyebrow{font-size:.56rem;letter-spacing:.15em}
+  .invitecraft-promo h2{font-size:clamp(2.35rem,10vw,3.2rem);max-width:520px}
+  .promo-description{font-size:.76rem;line-height:1.85}
+  .promo-perks{gap:9px 13px;margin-bottom:22px}
+  .promo-perks span{font-size:.59rem}
+  .promo-actions{grid-template-columns:1fr;gap:9px}
+  .promo-cta{min-height:66px;padding:12px 13px;border-radius:16px}
+  .promo-cta-copy strong{font-size:.74rem}.promo-cta-copy small{font-size:.58rem}
+  .promo-byline{font-size:.58rem}
+  .promo-showcase{max-width:370px;width:calc(100% - 10px);transform:none;animation:none;margin:0 auto 5px}
+  .promo-showcase:hover{transform:translateY(-2px);animation:none}
+  .promo-invitation-preview{aspect-ratio:4/4.8}
+  .promo-floating-seal{right:8px;top:43px;width:68px;height:68px}
+  .footer-bottom-line{display:flex;flex-direction:column;gap:5px;text-align:center;margin-top:20px;padding-top:15px;font-size:.56rem}
+}
+@media(max-width:380px){
+  .invitecraft-promo{padding:20px 13px 17px;gap:24px}
+  .promo-brand-row{align-items:flex-start;flex-direction:column;gap:9px}
+  .promo-logo{width:min(100%,230px);height:62px}
+  .promo-brand-badge{align-self:flex-start}
+  .invitecraft-promo h2{font-size:2.2rem}
+  .promo-showcase{width:calc(100% - 5px);padding:9px}
+  .promo-preview-caption{padding:9px}.promo-preview-caption strong{font-size:1rem}
+  .promo-showcase-footer{font-size:.4rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .promo-showcase,.promo-eyebrow span{animation:none!important}
+  .promo-cta,.promo-invitation-preview img{transition:none!important}
+}
