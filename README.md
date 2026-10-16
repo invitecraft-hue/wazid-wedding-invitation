@@ -1,0 +1,32 @@
+# Wazid Ali & Jeenat Parveen — Wedding Invitation Website
+
+A responsive, static wedding-invitation website styled in deep burgundy, maroon, ivory and antique gold, including a portrait-first phone layout.
+
+## Preview / run locally
+1. Extract the ZIP.
+2. Open `index.html` in a modern browser, or put the folder inside the local web-server root (for example XAMPP `htdocs`) and open it through `http://localhost/...`.
+3. Use a phone or the browser's device toolbar to preview the responsive layout.
+
+## Design features
+- Curtain-opening invitation screen with gold arch and Urdu calligraphy.
+- Mobile-first hero with the supplied couple photo in a decorative gold frame, wedding dates and live Nikah countdown.
+- Family invitation card and family details.
+- Interactive scratch-to-reveal invitation card (mouse and touch support).
+- Nikah and Dawat-e-Walima event cards and calendar download.
+- Redesigned photo gallery with ornate arch frame, featured couple photo, horizontal thumbnail rail, animated category filters, responsive “View All Photos” mosaic, and full-screen lightbox with keyboard/tap navigation and photo download.
+- Gallery uses the supplied couple photo and invitation artwork; additional detail views are crops from the supplied photo rather than invented couple portraits.
+- Fully rounded, animated buttons with subtle gold shimmer, hover lift and mobile tap feedback.
+- Updated scratch-card foil, dark burgundy event cards, rounded gallery frame and smoother interactive states.
+- Mobile navigation menu, responsive layout, venue map/directions and share button.
+- Preserved background music control and InviteCraft footer/contact block.
+
+## Files
+- `index.html` — page structure and invitation content.
+- `styles.css` — design system, animations and mobile responsiveness.
+- `script.js` — curtain interaction, navigation, countdown, scratch card, gallery, music, calendar and share behaviours.
+- `assets/` — couple photo, original invitation reference, InviteCraft logo, and gallery-ready crops/details.
+
+## Notes
+- Google Fonts are loaded online. If there is no internet connection, the site falls back to local serif/sans-serif fonts.
+- Browser audio usually starts only after the visitor presses the Music button.
+- Venue details are displayed as entered in the current invitation. Please verify the Nikah venue before publishing if it differs from the listed family address.
