@@ -36,3 +36,7 @@ A responsive, static wedding-invitation website styled in deep burgundy, maroon,
 - Google Fonts are loaded online. If there is no internet connection, the site falls back to local serif/sans-serif fonts.
 - Browser audio usually starts only after the visitor presses the Music button.
 - Venue details are displayed as entered in the current invitation. Please verify the Nikah venue before publishing if it differs from the listed family address.
+
+
+## Google Analytics 4
+Measurement ID `G-PXE70J6323` is configured. Key interactions emit GA4 events including `open_invitation`, `scratch_card_revealed`, `gallery_photo_open`, `whatsapp_contact_click`, `email_contact_click`, and `add_to_calendar`. Deploy the updated `index.html` and `script.js` to GitHub Pages to start collecting data.

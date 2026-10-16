@@ -1,6 +1,29 @@
 (() => {
   const $ = (selector, root=document) => root.querySelector(selector);
   const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
+  // GA4 custom events; no names, phone numbers, or other personal data are sent.
+  const trackEvent = (eventName, params={}) => {
+    if (typeof window.gtag === "function") window.gtag("event", eventName, params);
+  };
+  // Track key invitation interactions in addition to GA4 enhanced measurement.
+  document.addEventListener("click", event => {
+    const target = event.target.closest("a, button");
+    if (!target) return;
+    if (target.id === "openInvitation") trackEvent("open_invitation", {event_category:"engagement"});
+    if (target.id === "musicToggle") trackEvent("music_toggle", {event_category:"engagement"});
+    if (target.id === "calendarLink") trackEvent("add_to_calendar", {event_category:"engagement"});
+    if (target.id === "shareButton") trackEvent("share_invitation", {event_category:"sharing", method:"share_button"});
+    if (target.id === "galleryToggleAll") trackEvent("gallery_view_all", {event_category:"gallery"});
+    if (target.closest(".promo-cta-primary") || (target.tagName === "A" && /wa\.me\//i.test(target.href))) {
+      trackEvent("whatsapp_contact_click", {event_category:"contact", link_url:target.href});
+    }
+    if (target.closest(".promo-cta-secondary") || (target.tagName === "A" && /^mailto:/i.test(target.href))) {
+      trackEvent("email_contact_click", {event_category:"contact"});
+    }
+    if (target.id === "galleryMainButton" || target.closest(".gallery-thumb, .gallery-mosaic-item")) {
+      trackEvent("gallery_photo_open", {event_category:"gallery"});
+    }
+  });
   const intro = $("#intro");
   const openBtn = $("#openInvitation");
   openBtn.addEventListener("click", () => {
@@ -176,6 +199,7 @@
       for (let i=3;i<pixels.length;i+=4*step) if (pixels[i] < 20) transparent++;
       if (transparent / (pixels.length / (4*step)) > .38 && !revealTriggered) {
         revealTriggered = true;
+        trackEvent("scratch_card_revealed", {event_category:"engagement"});
         drawing = false;
         canvas.style.opacity = "0";
         canvas.style.pointerEvents = "none";
